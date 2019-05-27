@@ -6,11 +6,11 @@ require('dotenv').config();
 const url = 'https://api.mlab.com/api/1/databases/bdschooldb/collections/schools?';
 const apiKey = process.env.APIKEY;
 
-http.createServer(function (req, res) {
+const server = http.createServer(function (req, res) {
   // eslint-disable-next-line no-console
   console.log(new Date().toLocaleString(), req.url);
   const items = req.url.split('/');
-  res.setHeader('Content-Type', 'application/json');  
+  res.setHeader('Content-Type', 'application/json');
   if (items.length === 3) {
     fetch(url + 'apiKey=' + apiKey)
       .then(res => res.text())
@@ -29,4 +29,9 @@ http.createServer(function (req, res) {
         res.end();
       });
   }
-}).listen(8080);
+});
+
+const port = 4500;
+// eslint-disable-next-line no-console
+console.log(`Server listening on port ${port}…`);
+server.listen(port);
