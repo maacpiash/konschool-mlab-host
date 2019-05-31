@@ -4,7 +4,7 @@ The database is hosted on mLab. Since I could not connect to the database direct
 
 ### Usage
 - To get the details of all the schools: https://konschool-mlab-host.herokuapp.com/api/schools
-- To get the details of one school with EIIN number xyz: https://konschool-mlab-host.herokuapp.com/api/schools/xyz
+- To get the details of one school with EIIN number, e.g. 100005: https://konschool-mlab-host.herokuapp.com/api/schools/100005
 
 ### Acknowledgement
 Data on secondary schools in Bangladesh was collected from [Bangladesh Open Data](http://data.gov.bd).
