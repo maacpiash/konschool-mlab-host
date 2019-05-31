@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const fetch = require('node-fetch');
 const Bluebird = require('bluebird');
 fetch.Promise = Bluebird;
@@ -8,6 +9,7 @@ const url = 'https://api.mlab.com/api/1/databases/bdschooldb/collections/schools
 const apiKey = process.env.APIKEY;
 
 const app = express();
+app.use(cors());
 
 app.get('/api/schools', function(req, res) {
   // eslint-disable-next-line no-console
