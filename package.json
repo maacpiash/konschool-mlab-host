@@ -7,7 +7,6 @@
     "start": "node index.js",
     "watch": "node ./node_modules/nodemon/bin/nodemon.js index.js",
     "test": "jest test.js"
-
   },
   "husky": {
     "hooks": {
@@ -24,7 +23,7 @@
     "bluebird": "^3.5.5",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
-    "express": "^4.17.0",
+    "express": "^4.17.1",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
