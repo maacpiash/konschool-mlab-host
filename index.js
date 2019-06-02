@@ -1,36 +1,44 @@
 const express = require('express');
 const cors = require('cors');
-const fetch = require('node-fetch');
+const MongoClient = require('mongodb').MongoClient;
 const Bluebird = require('bluebird');
-fetch.Promise = Bluebird;
+MongoClient.Promise = Bluebird;
 
 require('dotenv').config();
-const url = 'https://api.mlab.com/api/1/databases/bdschooldb/collections/schools?';
-const apiKey = process.env.APIKEY;
+const URL = 'mongodb://' + process.env.USERNAME + ':' + process.env.PASSWORD + '@ds016138.mlab.com:16138/bdschooldb';
 
 const app = express();
 app.use(cors());
 
 app.get('/api/schools', function(req, res) {
   // eslint-disable-next-line no-console
-  console.log(new Date().toLocaleString(), req.url, res.statusCode);
-  fetch(url + 'apiKey=' + apiKey)
-    .then(res => res.text())
-    .then(body => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(body);
+  console.log(new Date(), req.url);
+  MongoClient.connect(URL, { useNewUrlParser: true })
+    .then(client => client.db())
+    .then(db => {
+      db.collection('schools').find({}).toArray((err, docs) => {
+        if (err) {
+          res.error(err);
+        } else {
+          res.json(docs);
+        }
+      });
     });
 });
 
-app.get('/api/schools/:id', function(req, res,) {
+app.get('/api/schools/:id', function(req, res) {
   // eslint-disable-next-line no-console
-  console.log(new Date().toLocaleString(), req.url, res.statusCode);
-  const newUrl = url + 'q={"ID":"' + req.params.id + '"}&apiKey=' + apiKey;
-  fetch(newUrl)
-    .then(res => res.text())
-    .then(body => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).send(body);
+  console.log(new Date(), req.url);
+  MongoClient.connect(URL, { useNewUrlParser: true })
+    .then(client => client.db())
+    .then(db => {
+      db.collection('schools').find({'ID': req.params.id}).toArray((err, docs) => {
+        if (err) {
+          res.error(err);
+        } else {
+          res.json(docs);
+        }
+      });
     });
 });
 
